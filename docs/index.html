@@ -64,9 +64,21 @@
             border: 2px solid white;
         }
 
-        a.button:hover {
-            color: #5B86E5;
+        /* https://stackoverflow.com/a/74146820/5511061 */
+        /* a.button:hover {
             background-color: white;
+            cursor: pointer;
+        } */
+        @media (hover: hover) {
+          a.button:hover {
+            background-color: white;
+            cursor: pointer;
+          }
+        }
+        @media (hover: none) {
+          a.button:active {
+            background-color: white;
+          }
         }
 
         h1.name {
@@ -88,6 +100,10 @@
             padding-top: 20px;
         }
 
+        div.subtitle {
+            padding-bottom: 5px;
+        }
+
         @media (min-width: 768px) {
             .container {
                 width: 600px;
@@ -107,6 +123,20 @@
                 padding-top: 20px
             }
         }
+
+        .collapsible:after {
+          content: "\002B";
+          float: right;
+        }
+
+        .collapsible.active:after {
+          content: "\2212";
+        }
+
+        .faqcontent {
+          transition: max-height 0.2s ease-out;
+          background-color: transparent;
+        }
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5SXT08JRH"></script>
@@ -120,10 +150,54 @@
                 <img class="profile" src="./images/assumstadt.jpg" alt="Schloss Assumstadt">
             </div>
             <div class="slogan">
-                1 June 2024</br>
-                15:00
+                <div>1 June 2024</div>
+                <div>15:00</div>
+                </br>
+                <div><b>PLEASE E-MAIL US</b></div>
+                <div>latest by 1 March 2024</div>
+                </br>
+                <div>♡ to confirm your attendance ♡</div>
+                <div>♡ to tell us about allergies and such ♡</div>
             </div>
             <a href="mailto:wedding@delange.dev" class="button">E-Mail</a>
+            <a class="collapsible button">Agenda</a>
+            <div class="faqcontent" hidden=1>
+                <div>♡ welcome ♡</div>
+                <div>♡ ceremony ♡</div>
+                <div>♡ ... 🥂 ... ♡</div>
+                <div>♡ photos ♡</div>
+                <div>♡ buffet ♡</div>
+                <div>♡ ... 🍰 ... ♡</div>
+                <div>♡ dancing ♡</div>
+            </div>
+            <a class="collapsible button">Speech / Act ?</a>
+            <div class="faqcontent" hidden=1>
+                <div>♡ are you planning something? ♡</div>
+                <div>♡ please contact our maids of honour / best men ♡</div>
+            </div>
+            <a class="collapsible button">Gift</a>
+            <div class="faqcontent" hidden=1>
+                <div>♡ your presence in June is the greatest gift ♡</div>
+                <div>if you're considering an additional gesture</div>
+                <div>contributing to our honeymoon would help us</div>
+                <div>make memories that will last a lifetime</div>
+                <div>♡ your support means the world to us ♡</div>
+            </div>
+            <a class="collapsible button">Sleeping</a>
+            <div class="faqcontent" hidden=1>
+                <div>♡ Ferienhof Carle ♡</div>
+                <div class="subtitle"><small><i>walking distance, minimum 2 nights stay</i></small></div>
+                <div>♡ Hotel Garni Alte Post ♡</div>
+                <div class="subtitle"><small><i>a short drive away</i></small></div>
+                <div>♡ Campingwiese Neudenau ♡</div>
+                <div class="subtitle"><small><i>tent or camper, includes an outdoor pool</i></small></div>
+            </div>
+            <a class="collapsible button">Parking</a>
+            <div class="faqcontent" hidden=1>
+                <div>♡ Assumstadt 1, 74219 Möckmühl ♡</div>
+                <!-- https://embed-googlemap.com/ -->
+                <div class="mapouter" style="padding: 10px 0;"><div class="gmap_canvas"><iframe class="gmap_iframe" width="95%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Parkplatz Assumstadt&amp;t=h&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div><style>.mapouter{position:relative;text-align:center;width:100%;height:400px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:400px;}.gmap_iframe {height:400px!important;}</style></div>
+            </div>
         </div>
     </div>
     <footer>
@@ -134,6 +208,19 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-B5SXT08JRH');
+    </script>
+    <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var faqcontent = this.nextElementSibling
+            faqcontent.hidden = !faqcontent.hidden;
+            faqcontent.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+    }
     </script>
 </body>
 
